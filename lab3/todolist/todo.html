@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo List</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navigator">
+    <h1>Todo List</h1>
+</div>
+
+<div class="container">
+    <h1>Add New Task</h1>
+    <input type="text" id="taskInput" placeholder="Enter task...">
+    <button onclick="addTask()">Add Task</button>
+
+    <h1>Tasks</h1>
+    <table id="taskList">
+        <!-- Tasks will be dynamically added here -->
+    </table>
+</div>
+
+<script>
+    // Function to add a new task
+    function addTask() {
+        var taskInput = document.getElementById("taskInput");
+        var taskText = taskInput.value.trim();
+        if (taskText === "") return;
+
+        var table = document.getElementById("taskList");
+        var newRow = table.insertRow();
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.addEventListener("change", function() {
+            if (this.checked) {
+                taskTextElement.classList.add("completed-task");
+            } else {
+                taskTextElement.classList.remove("completed-task");
+            }
+        });
+
+        var deleteIcon = document.createElement("div");
+        deleteIcon.classList.add("delete-icon");
+        deleteIcon.textContent = "❌";
+        deleteIcon.addEventListener("click", function() {
+            newRow.remove();
+        });
+
+        var taskTextElement = document.createElement("span");
+        taskTextElement.textContent = taskText;
+        taskTextElement.classList.add("task-text");
+
+        cell1.appendChild(checkbox);
+        cell1.appendChild(taskTextElement);
+        cell2.appendChild(deleteIcon);
+
+        taskInput.value = "";
+    }
+</script>
+
+</body>
+</html>
